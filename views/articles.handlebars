@@ -1,0 +1,23 @@
+{{#each articles}}
+	<div id="accordion" role="tablist">
+	  <div class="card">
+	    <div class="card-header" role="tab" id="headingOne">
+	      <h5 class="mb-0">
+	        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          {{this.headline}}
+	        </a>
+	      </h5>
+	    </div>
+	    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+	      <div class="card-body">
+	        <div id="summary">
+	        	<p>{{this.summary}}</p>
+			</div>
+			<div id="link">
+				<p>{{this.link}}</p>
+			</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{{/each}}

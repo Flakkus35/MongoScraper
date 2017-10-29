@@ -1,0 +1,29 @@
+#main_image {
+	width: 100%;
+	height: 800px;
+}
+
+#scrape_button {
+	padding: 20px;
+	background: blue;
+	font-weight: bold;
+	color: #5b5bff;
+	width: 200px;
+	text-align: center;
+	font-size: 30px;
+}
+
+#title_brand {
+	font-size: 50px;
+}
+
+#navbar {
+	background: red;
+}
+
+.article_group {
+	width: 100%;
+	text-align: center;
+	font-size: 30px;
+	background-color: brown;
+}
