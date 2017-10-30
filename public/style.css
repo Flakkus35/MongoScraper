@@ -5,16 +5,19 @@
 
 #scrape_button {
 	padding: 20px;
-	background: blue;
+	background: #c3c3c3;
 	font-weight: bold;
-	color: #5b5bff;
+	color: black;
 	width: 200px;
 	text-align: center;
 	font-size: 30px;
+	border: 5px ridge grey;
+	border-radius: 10px;
 }
 
 #title_brand {
 	font-size: 50px;
+	font-family: 'Limelight', cursive;
 }
 
 #navbar {
@@ -34,13 +37,15 @@
 
 #saved_articles_button {
 	padding: 20px;
-	background: blue;
+	background: #c3c3c3;
 	font-weight: bold;
-	color: #5b5bff;
+	color: black;
 	width: 200px;
 	text-align: center;
 	font-size: 30px;
 	margin-left: 30px;
+	border: 5px ridge grey;
+	border-radius: 10px;
 }
 
 #note-input {

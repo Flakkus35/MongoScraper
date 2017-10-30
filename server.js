@@ -8,6 +8,7 @@ var exphbs = require("express-handlebars");
 // Grab our mongoose models
 var db = require("./models");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 var PORT = process.env.PORT || 3000;
 
 // Express
@@ -24,7 +25,7 @@ app.use(express.static("public"));
 
 // Mongoose
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/mongoScraperDB", {
+mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
 
@@ -33,7 +34,7 @@ app.get("/", function(req, res) {
 	res.render("empty");
 });
 
-// Scrape articles from site
+// Scrape articles from site and stores in database
 app.get("/scrape", function(req, res) {
 	axios.get("https://www.nytimes.com/section/world?action=click&pgtype=Homepage&region=TopBar&module=HPMiniNav&contentCollection=World&WT.nav=page")
 	.then(function(response) {
@@ -59,8 +60,7 @@ app.get("/scrape", function(req, res) {
 			db.Article
 				.create(result)
 				.then(function(dbArticle) {
-					/*res.json(dbArticle);*/
-					console.log("worked");
+					console.log("scraped");
 				})
 				.catch(function(err) {
 					return res.json(err);
@@ -70,16 +70,16 @@ app.get("/scrape", function(req, res) {
 	});
 });
 
+// Displays articles from database
 app.get("/display", function(req, res) {
 	db.Article
 		.find({})
 		.then(function(articleObj) {
-			/*res.json(articleObj);*/
-			console.log("hello");
 			res.render("articles", {articles: articleObj});
 		});
 });
 
+// Saves articles
 app.post("/save/:id", function(req, res) {
 	var savedId = req.params.id;
 	db.Article
@@ -93,6 +93,7 @@ app.post("/save/:id", function(req, res) {
 		});
 });
 
+// Displays saved articles
 app.get("/saved", function(req,res) {
 	db.Article
 		.find({ saved: true })
@@ -104,6 +105,7 @@ app.get("/saved", function(req,res) {
 		});
 });
 
+// Deletes saved articles
 app.post("/delete/:id", function(req, res) {
 	var savedId = req.params.id;
 	db.Article
@@ -117,6 +119,7 @@ app.post("/delete/:id", function(req, res) {
 		});
 });
 
+// Displays notes on article
 app.get("/notes/:id", function(req, res) {
 	var savedId = req.params.id;
 	db.Article
@@ -130,6 +133,7 @@ app.get("/notes/:id", function(req, res) {
 		});
 });
 
+// Adds a Note to article
 app.post("/addnote/:id", function(req, res) {
 	var savedId = req.params.id;
 	console.log(savedId);
@@ -144,6 +148,7 @@ app.post("/addnote/:id", function(req, res) {
 	});
 });
 
+// Deletes note from article
 app.post("/deletenote/:id", function(req, res) {
 	var savedId = req.params.id;
 	db.Article

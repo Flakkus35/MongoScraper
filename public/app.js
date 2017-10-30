@@ -1,10 +1,12 @@
 $(document).ready(function() {
 
+	// Click handler for scraping articles from site
 	$("#scrape_button").on("click", function(event) {
 		event.preventDefault();
 		document.location.href="/scrape";
 	});
 
+	// Click handler for saving an article
 	$(document).on("click", ".save_article", function(event) {
 		event.preventDefault();
 		var thisId = $(this).attr("data-id");
@@ -17,11 +19,13 @@ $(document).ready(function() {
 		});
 	});
 
+	// Click handler for showing saved articles route
 	$(document).on("click", "#saved_articles_button", function(event) {
 		event.preventDefault();
 		document.location.href="/saved";
 	});
 
+	// Click handler for deleting a saved article
 	$(document).on("click", ".delete_article", function(event) {
 		event.preventDefault();
 		var thisId = $(this).attr("data-id");
@@ -34,6 +38,7 @@ $(document).ready(function() {
 		});
 	});
 
+	// Click handler for note modal
 	$(document).on("click", ".note_button", function(event) {
 		event.preventDefault();
 		$('#note').empty();
@@ -56,9 +61,9 @@ $(document).ready(function() {
 			return console.log(err);
 		});
 
+		// Click handler for adding a note
 		$(document).on("click", "#add-note", function(event) {
 			event.preventDefault();
-			// var thisId = $(this).attr("data-note-id")
 			$.post("/addnote/" + thisId, {
 				body: $('#note-text').val()
 			})
@@ -72,6 +77,7 @@ $(document).ready(function() {
 			$('#note-modal').modal('hide');
 		});
 
+		// Click handler for deleting a note
 		$(document).on("click", ".delete-note", function(event) {
 			event.preventDefault();
 			$.post("/deletenote/" + thisId, { _id: noteId })
@@ -84,20 +90,4 @@ $(document).ready(function() {
 			$('#note').empty();
 		});
 	});
-
-	/*$(document).on("click", "#add-note", function(event) {
-		event.preventDefault();
-		var thisId = $(this).attr("data-note-id")
-		$.post("/addnote/" + thisId, {
-			body: $('#note-text').val()
-		})
-		.then(function(data) {
-			console.log(data);
-			$('#note-text').val('');
-			$('#note-modal').modal('hide');
-		})
-		.catch(function(err) {
-			return console.log(err);
-		});
-	});*/
 });
