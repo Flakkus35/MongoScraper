@@ -28,7 +28,7 @@
 	background-color: brown;
 }
 
-.save_article, .delete_article {
+.save_article, .delete_article, .note_button, .delete-note {
 	float: right;
 }
 
@@ -41,4 +41,8 @@
 	text-align: center;
 	font-size: 30px;
 	margin-left: 30px;
+}
+
+#note-input {
+	word-wrap: break-word;
 }
