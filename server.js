@@ -60,7 +60,7 @@ app.get("/scrape", function(req, res) {
 				.create(result)
 				.then(function(dbArticle) {
 					/*res.json(dbArticle);*/
-					console.log(dbArticle);
+					console.log("worked");
 				})
 				.catch(function(err) {
 					return res.json(err);
@@ -88,7 +88,45 @@ app.get("/display", function(req, res) {
 		.find({})
 		.then(function(articleObj) {
 			/*res.json(articleObj);*/
+			console.log("hello");
 			res.render("articles", {articles: articleObj});
+		});
+});
+
+app.post("/save/:id", function(req, res) {
+	var savedId = req.params.id;
+	db.Article
+		.findOne({ _id: savedId })
+		.update({ saved: true })
+		.then(function(savedArticles) {
+			res.json(savedArticles);
+		})
+		.catch(function(err) {
+			return res.json(err);
+		});
+});
+
+app.get("/saved", function(req,res) {
+	db.Article
+		.find({ saved: true })
+		.then(function(savedArticles) {
+			res.render("saved", {saved: savedArticles});
+		})
+		.catch(function(err) {
+			return res.json(err);
+		});
+});
+
+app.post("/delete/:id", function(req, res) {
+	var savedId = req.params.id;
+	db.Article
+		.find({ _id: savedId })
+		.update({ saved: false })
+		.then(function(delArticle) {
+			res.json(delArticle);
+		})
+		.catch(function(err) {
+			return res.json(err);
 		});
 });
 
