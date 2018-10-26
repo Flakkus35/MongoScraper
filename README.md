@@ -1,5 +1,7 @@
 # MongoScraper
 
+Check it out here: https://mongo-scrap.herokuapp.com/
+
 App scrapes current articles from the New York Times website to generate that information onto the site using handlebars.
 
 Once scraped, the app stores the headline, summary, and link to the page in a Mongo database.
